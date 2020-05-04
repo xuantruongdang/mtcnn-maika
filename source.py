@@ -6,25 +6,6 @@ import cv2
 import math 
 import numpy as np
 
-# draw an image with detected objects
-# def draw_image_with_boxes(filename, result_list):
-# 	# load the image
-# 	data = pyplot.imread(filename)
-# 	# plot the image
-# 	pyplot.imshow(data)
-# 	# get the context for drawing boxes
-# 	ax = pyplot.gca()
-# 	# plot each box
-# 	for result in result_list:
-# 		# get coordinates
-# 		x, y, width, height = result['box']
-# 		# create the shape
-# 		rect = Rectangle((x, y), width, height, fill=False, color='red')
-# 		# draw the box
-# 		ax.add_patch(rect)
-# 	# show the plot
-# 	pyplot.show()
-
 def distance_to_camera(r, focalLength, R):
 	# compute and return the distance from the maker to the camera
 	return (r * focalLength) / R 
@@ -49,11 +30,6 @@ while True:
     # preprocess img acquired
     img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (640, 480)) 
-    # img_mean = np.array([127, 127, 127])
-    # img = (img - img_mean) / 128
-    # img = np.transpose(img, [2, 0, 1])
-    # img = np.expand_dims(img, axis=0)
-    # img = img.astype(np.float32)
 
     faces = detector.detect_faces(img)
 
@@ -69,7 +45,7 @@ while True:
         cv2.rectangle(frame, (x1, y1), (x2, y2), (80,18,236), 2)
         cv2.rectangle(frame, (x1, y2 - 20), (x2, y2), (80,18,236), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
-        text = f"face: {index}"
+        text = f"face: {index + 1}"
         cv2.putText(frame, text, (x1 + 6, y2 - 6), font, 0.5, (255, 255, 255), 1)
         cv2.putText(frame, "%.2fcm" % (cm),
 		    (w - 200, h - 20), cv2.FONT_HERSHEY_SIMPLEX,
